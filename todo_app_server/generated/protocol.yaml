@@ -1,0 +1,7 @@
+example:
+  - hello:
+todo:
+  - getAllTodo:
+  - addTodo:
+  - updateTodo:
+  - deleteTodo:
