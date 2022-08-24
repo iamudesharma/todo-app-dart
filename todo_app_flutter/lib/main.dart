@@ -12,11 +12,12 @@ var client = Client(
   'http://localhost:8080/',
   authenticationKeyManager: FlutterAuthenticationKeyManager(),
 );
+late SessionManager sessionManager;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final sessionManager = SessionManager(
+  sessionManager = SessionManager(
     caller: client.modules.auth,
   );
   await sessionManager.initialize();
@@ -101,6 +102,28 @@ class _MyHomePageState extends State<MyHomePage> {
               resultMessage: _resultMessage,
               errorMessage: _errorMessage,
             ),
+            Text(sessionManager.isSignedIn.toString()),
+
+            TextButton(
+                onPressed: () async {
+                  await sessionManager.caller.email
+                      .createAccountRequest(
+                          "iamudesh", "udesh2568@gmail.com", "Udesh@123")
+                      .then((value) {
+                    print("-----Vlaue------");
+                    print(value);
+                    print("-----huwuhuw------");
+                  }).catchError((e) {
+                    print("-----Vlaue------");
+                    print(e.toString());
+                    print("-----huwuhuw------");
+                  });
+                },
+                child: Text("Login"))
+//             TextButton(onPressed: (){
+// showDialog(context: context, builder: Si)
+
+//             }, child: Text("login"),)
           ],
         ),
       ),
